@@ -12,6 +12,8 @@
 
 
 /* Sections style */
+
+@import url('./timer.css');
 @import url('./header.css');
 @import url('./vite-promo.css');
 
