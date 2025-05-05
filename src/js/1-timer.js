@@ -19,26 +19,27 @@ let timer = 5;
 //     }
 //     }, 1000);
 
-    // const options = {
-    //     enableTime: true,
-    //     time_24hr: true,
-    //     defaultDate: new Date(),
-    //     minuteIncrement: 1,
-    //     onClose(selectedDates) {
-    //       console.log(selectedDates[0]);
-    //     },
-    //   };
+let userSelectedDate;
 
-   const input = document.querySelector('#datetime-picker'); 
+    const options = {
+        enableTime: true,
+        time_24hr: true,
+        defaultDate: new Date(),
+        minuteIncrement: 1,
+        onClose(selectedDates) {
+          userSelectedDate = selectedDates;
+          console.log(selectedDates[0]);
+        },
+      };
+
+   const input = document.querySelector('input[type="text"]'); 
 
 //    <button type="button" data-start>Start</button>
    const btn = document.querySelector('[data-start]'); 
    console.log(input);
-   console.log(btn);
+  //  console.log(btn);
 
-   let userSelectedDate;
-
-   function convertMs(ms) {
+      function convertMs(ms) {
     // Number of milliseconds per unit of time
     const second = 1000;
     const minute = second * 60;
@@ -57,9 +58,9 @@ let timer = 5;
     return { days, hours, minutes, seconds };
   }
   
-  console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
-  console.log(convertMs(140000)); // {days: 0, hours: 0, minutes: 2, seconds: 20}
-  console.log(convertMs(24140000)); // {days: 0, hours: 6 minutes: 42, seconds: 20}
+  //console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
+  //console.log(convertMs(140000)); // {days: 0, hours: 0, minutes: 2, seconds: 20}
+  //console.log(convertMs(24140000)); // {days: 0, hours: 6 minutes: 42, seconds: 20}
 
   function addLeadingZero(value){
     return value.toString().padStart(2, '0');
@@ -67,4 +68,14 @@ let timer = 5;
 
 //   console.log(addLeadingZero(2));
   
-    
+flatpickr(input, options);
+console.log(userSelectedDate);
+// const date = new Date(userSelectedDate);
+// console.log(Date.now(date));
+// const date02 = new Date();
+// console.log(Date.now(date02));
+
+const t = Date.now();
+// const t02 = Date.now();
+console.log(t);
+// console.log(t02);
