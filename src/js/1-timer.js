@@ -19,7 +19,7 @@ let timer = 5;
 //     }
 //     }, 1000);
 
-let userSelectedDate;
+let userSelectedDate = null;
 
     const options = {
         enableTime: true,
@@ -27,8 +27,10 @@ let userSelectedDate;
         defaultDate: new Date(),
         minuteIncrement: 1,
         onClose(selectedDates) {
-          userSelectedDate = selectedDates;
-          console.log(selectedDates[0]);
+          selectedDates[0];
+          // console.log(selectedDates[0]);
+          // console.log(a);
+          
         },
       };
 
@@ -69,13 +71,15 @@ let userSelectedDate;
 //   console.log(addLeadingZero(2));
   
 flatpickr(input, options);
-console.log(userSelectedDate);
+
+
 // const date = new Date(userSelectedDate);
-// console.log(Date.now(date));
+// console.log(date);
 // const date02 = new Date();
 // console.log(Date.now(date02));
 
-const t = Date.now();
+// const t = Date.now();
 // const t02 = Date.now();
-console.log(t);
+// console.log(t);
 // console.log(t02);
+// options.onClose();
