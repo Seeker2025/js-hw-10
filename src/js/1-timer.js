@@ -20,25 +20,31 @@ let timer = 5;
 //     }, 1000);
 
 let userSelectedDate = null;
+const input = document.querySelector('input[type="text"]'); 
 
-    const options = {
-        enableTime: true,
-        time_24hr: true,
-        defaultDate: new Date(),
-        minuteIncrement: 1,
-        onClose(selectedDates) {
-          selectedDates[0];
-          // console.log(selectedDates[0]);
-          // console.log(a);
-          
-        },
-      };
+  const options = {
+    enableTime: true,
+    time_24hr: true,
+    defaultDate: new Date(),
+    minuteIncrement: 1,
+    onClose(selectedDates) {
+      // console.log(selectedDates[0]);
+      // console.log(userSelectedDate);
+      setFun(selectedDates[0])
+     },
+  };
 
-   const input = document.querySelector('input[type="text"]'); 
+  function setFun(ooo){
+    userSelectedDate = ooo;
+    setTimeout(()=>{
+  // console.log('userSelectedDate');
+  console.log(userSelectedDate);
+}, 5000)
+  }
 
 //    <button type="button" data-start>Start</button>
    const btn = document.querySelector('[data-start]'); 
-   console.log(input);
+  //  console.log(input);
   //  console.log(btn);
 
       function convertMs(ms) {
@@ -67,14 +73,11 @@ let userSelectedDate = null;
   function addLeadingZero(value){
     return value.toString().padStart(2, '0');
   }
-
-//   console.log(addLeadingZero(2));
   
-flatpickr(input, options);
-
+let ddd = flatpickr(input, options);
 
 // const date = new Date(userSelectedDate);
-// console.log(date);
+// console.log(aa);
 // const date02 = new Date();
 // console.log(Date.now(date02));
 
@@ -83,3 +86,10 @@ flatpickr(input, options);
 // console.log(t);
 // console.log(t02);
 // options.onClose();
+
+// console.log(userSelectedDate);
+
+// setTimeout(()=>{
+//   // console.log('userSelectedDate');
+//   console.log(userSelectedDate);
+// }, 8000)
