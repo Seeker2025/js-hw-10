@@ -4,7 +4,7 @@ import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 
 console.log('Timer module loaded');
-let timer = 5;
+// let timer = 5;
 
 ////// Unix timestamp
 // const time = Date.now();
@@ -20,7 +20,19 @@ let timer = 5;
 //     }, 1000);
 
 let userSelectedDate = null;
+const UNIX_Time_now = Date.now();
 const input = document.querySelector('input[type="text"]'); 
+
+const daysRef = document.querySelector('.value[data-days]');
+const hoursRef = document.querySelector('.value[data-hours]');
+const minutesRef = document.querySelector('.value[data-minutes]');
+const secondsRef = document.querySelector('.value[data-seconds]');
+
+const startRef = document.querySelector('button[data-start]');
+// console.log(daysRef);
+// console.log(UNIX_Time_now);
+// console.log(startRef);
+startRef.addEventListener('click',  intervalFor)
 
   const options = {
     enableTime: true,
@@ -29,18 +41,33 @@ const input = document.querySelector('input[type="text"]');
     minuteIncrement: 1,
     onClose(selectedDates) {
       // console.log(selectedDates[0]);
-      // console.log(userSelectedDate);
-      setFun(selectedDates[0])
+      // console.log(selectedDates[0].getTime());
+      userSelectedDate = selectedDates[0];
+      const userDate = selectedDates[0].getTime();
+      const difference = userDate - UNIX_Time_now;
+      console.log(difference);
+      const realObj = convertMs(difference);
+      // console.log(realObj);
+      // uiLayout(realObj);
+      intervalFor(difference, realObj);
+      // days.textContent='22';
      },
   };
 
-  function setFun(ooo){
-    userSelectedDate = ooo;
-    setTimeout(()=>{
-  // console.log('userSelectedDate');
-  console.log(userSelectedDate);
-}, 5000)
+ function uiLayout(obj){
+    daysRef.textContent = addLeadingZero(obj.days);
+    hoursRef.textContent = addLeadingZero(obj.hours);
+    minutesRef.textContent = addLeadingZero(obj.minutes);
+    secondsRef.textContent = addLeadingZero(obj.seconds);
   }
+
+//   function setFun(ooo){
+//     userSelectedDate = ooo;
+//     setTimeout(()=>{
+//   // console.log('userSelectedDate');
+//   console.log(userSelectedDate);
+// }, 5000)
+//   }
 
 //    <button type="button" data-start>Start</button>
    const btn = document.querySelector('[data-start]'); 
@@ -73,8 +100,21 @@ const input = document.querySelector('input[type="text"]');
   function addLeadingZero(value){
     return value.toString().padStart(2, '0');
   }
-  
-let ddd = flatpickr(input, options);
+
+////// Main function
+flatpickr(input, options);
+
+function intervalFor(timer, qqq){
+  const intervalTime = setInterval(() => {
+    timer-= 1;
+    console.log(timer);
+    if(timer === 0) {
+        clearInterval(intervalTime);
+        console.log('Timer stopped');
+    }
+    uiLayout(qqq);
+    }, 1000);
+}
 
 // const date = new Date(userSelectedDate);
 // console.log(aa);
@@ -93,3 +133,11 @@ let ddd = flatpickr(input, options);
 //   // console.log('userSelectedDate');
 //   console.log(userSelectedDate);
 // }, 8000)
+
+// const date = new Date();
+// console.log(date);
+// console.log(date.getTime());
+
+// const date04 = Date.now();
+// console.log(date04);
+
