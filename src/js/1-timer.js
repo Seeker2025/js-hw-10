@@ -29,10 +29,11 @@ const minutesRef = document.querySelector('.value[data-minutes]');
 const secondsRef = document.querySelector('.value[data-seconds]');
 
 const startRef = document.querySelector('button[data-start]');
+startRef.disabled = true;
+const zerro = 0;
 // console.log(daysRef);
 // console.log(UNIX_Time_now);
 // console.log(startRef);
-startRef.addEventListener('click',  intervalFor)
 
   const options = {
     enableTime: true,
@@ -44,21 +45,106 @@ startRef.addEventListener('click',  intervalFor)
       // console.log(selectedDates[0].getTime());
       userSelectedDate = selectedDates[0];
       const userDate = selectedDates[0].getTime();
-      const difference = userDate - UNIX_Time_now;
-      console.log(difference);
-      const realObj = convertMs(difference);
+      const startTime = Date.now();
+      let difference = userDate - UNIX_Time_now;
+      // console.log(userDate>UNIX_Time_now);
+       let { days, hours, minutes, seconds } = convertMs(difference);
+      // intervalFor(difference);
+      // let num02 = 10000;
+      //const intervalTime = setInterval(() => {
+       
+      // let {days, hours, minutes, seconds} = convertMs(num);
+      // console.log({ days, hours, minutes, seconds });
+       if(userDate < UNIX_Time_now){
+                  console.log('No!');
+                  alert('No!');
+                  const{ days, hours, minutes, seconds }=convertMs(0);
+                  uiLayout({ days, hours, minutes, seconds });
+                  // daysRef.textContent = '00';
+                  // hoursRef.textContent = '00';
+                  // minutesRef.textContent = '00';
+                  // secondsRef.textContent = '00';
+             }
+        else{
+        uiLayout({ days, hours, minutes, seconds });
+        startRef.disabled = false;
+
+      }
+      
+     
+      startRef.addEventListener('click',  ()=>{
+         console.log(userDate);
+         console.log(UNIX_Time_now);
+         
+
+        const intervalTime = setInterval(()=>{
+          // console.log(difference);
+          difference-= 1000;
+              
+          
+              if(difference <= 0) {
+                clearInterval(intervalTime);
+                console.log('Timer stopped');
+                }
+          let {days, hours, minutes, seconds} = convertMs(difference);
+          console.log({ days, hours, minutes, seconds });
+          // console.log(difference);
+          uiLayout({days, hours, minutes, seconds});
+        },1000)
+      
+      });
+          
+              //  let { days, hours, minutes, seconds } = convertMs(difference);
+              //   console.log({ days, hours, minutes, seconds });
+     
+      // console.log(`${days}::${hours}::${minutes}::${seconds}`);
       // console.log(realObj);
       // uiLayout(realObj);
-      intervalFor(difference, realObj);
+      // intervalFor(difference);
       // days.textContent='22';
+    // }, 1000);
+        
      },
   };
 
- function uiLayout(obj){
-    daysRef.textContent = addLeadingZero(obj.days);
-    hoursRef.textContent = addLeadingZero(obj.hours);
-    minutesRef.textContent = addLeadingZero(obj.minutes);
-    secondsRef.textContent = addLeadingZero(obj.seconds);
+  const intervalFor=(difference)=>{
+  const intervalTime = setInterval(() => {
+    
+    //  difference-= 1000;
+    //      if(difference <= 0) {
+    //     clearInterval(intervalTime);
+    //     console.log('Timer stopped');
+    //     return;
+    //     }
+
+        console.log(difference);
+       
+    // let realObj = null;
+    let { days, hours, minutes, seconds } = convertMs(difference);
+    // console.log({ days, hours, minutes, seconds });
+      // loop(timer)
+    // console.log(timer);
+    // console.log(`${days}::${hours}::${minutes}::${seconds}`);
+    // console.log(`${seconds}`);
+    // console.log(difference);
+    
+    // uiLayout({ days, hours, minutes, seconds });
+    
+    // if(timer === 0) {
+    //     clearInterval(intervalTime);
+    //     console.log('Timer stopped');
+    // }
+    
+    // timer-= 1;
+
+    }, 1000);
+}
+
+function uiLayout({days, hours, minutes, seconds}){
+    daysRef.textContent = days;
+    hoursRef.textContent = hours;
+    minutesRef.textContent = minutes;
+    secondsRef.textContent = seconds;
   }
 
 //   function setFun(ooo){
@@ -70,7 +156,7 @@ startRef.addEventListener('click',  intervalFor)
 //   }
 
 //    <button type="button" data-start>Start</button>
-   const btn = document.querySelector('[data-start]'); 
+  //  const btn = document.querySelector('[data-start]'); 
   //  console.log(input);
   //  console.log(btn);
 
@@ -82,39 +168,37 @@ startRef.addEventListener('click',  intervalFor)
     const day = hour * 24;
   
     // Remaining days
-    const days = Math.floor(ms / day);
+    const days = pad(Math.floor(ms / day));
     // Remaining hours
-    const hours = Math.floor((ms % day) / hour);
+    const hours =  pad(Math.floor((ms % day) / hour));
     // Remaining minutes
-    const minutes = Math.floor(((ms % day) % hour) / minute);
+    const minutes =  pad(Math.floor(((ms % day) % hour) / minute));
     // Remaining seconds
-    const seconds = Math.floor((((ms % day) % hour) % minute) / second);
+    const seconds =  pad(Math.floor((((ms % day) % hour) % minute) / second));
   
     return { days, hours, minutes, seconds };
   }
-  
-  //console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
+
+  //  function getTimeComponents(time) {
+  //   const hours = pad(Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+  //   const mins = pad(Math.floor((time % (1000 * 60 * 60)) / (1000 * 60)));
+  //   const secs = pad(Math.floor((time%(1000*60))/1000));
+  //   return { hours, mins, secs };
+  //   }
+  //   function pad(value) {
+  //   return String(value).padStart(2, '0');
+  //   }
+
+   //console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
   //console.log(convertMs(140000)); // {days: 0, hours: 0, minutes: 2, seconds: 20}
   //console.log(convertMs(24140000)); // {days: 0, hours: 6 minutes: 42, seconds: 20}
 
-  function addLeadingZero(value){
+  function pad(value){
     return value.toString().padStart(2, '0');
   }
 
 ////// Main function
 flatpickr(input, options);
-
-function intervalFor(timer, qqq){
-  const intervalTime = setInterval(() => {
-    timer-= 1;
-    console.log(timer);
-    if(timer === 0) {
-        clearInterval(intervalTime);
-        console.log('Timer stopped');
-    }
-    uiLayout(qqq);
-    }, 1000);
-}
 
 // const date = new Date(userSelectedDate);
 // console.log(aa);
