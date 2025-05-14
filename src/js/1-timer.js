@@ -3,6 +3,11 @@ import flatpickr from "flatpickr";
 // Додатковий імпорт стилів
 import "flatpickr/dist/flatpickr.min.css";
 
+// Описаний у документації
+import iziToast from "izitoast";
+// Додатковий імпорт стилів
+import "izitoast/dist/css/iziToast.min.css";
+
 console.log('Timer module loaded');
 // let timer = 5;
 
@@ -21,16 +26,18 @@ console.log('Timer module loaded');
 
 let userSelectedDate = null;
 const UNIX_Time_now = Date.now();
+////input
 const input = document.querySelector('input[type="text"]'); 
 
 const daysRef = document.querySelector('.value[data-days]');
 const hoursRef = document.querySelector('.value[data-hours]');
 const minutesRef = document.querySelector('.value[data-minutes]');
 const secondsRef = document.querySelector('.value[data-seconds]');
-
+////button
 const startRef = document.querySelector('button[data-start]');
 startRef.disabled = true;
-const zerro = 0;
+input.disabled = false;
+// const zerro = 0;
 // console.log(daysRef);
 // console.log(UNIX_Time_now);
 // console.log(startRef);
@@ -45,10 +52,11 @@ const zerro = 0;
       // console.log(selectedDates[0].getTime());
       userSelectedDate = selectedDates[0];
       const userDate = selectedDates[0].getTime();
-      const startTime = Date.now();
+      // const startTime = Date.now();
       let difference = userDate - UNIX_Time_now;
+      // let difference = 6000; ////// test
       // console.log(userDate>UNIX_Time_now);
-       let { days, hours, minutes, seconds } = convertMs(difference);
+      let { days, hours, minutes, seconds } = convertMs(difference);
       // intervalFor(difference);
       // let num02 = 10000;
       //const intervalTime = setInterval(() => {
@@ -57,7 +65,20 @@ const zerro = 0;
       // console.log({ days, hours, minutes, seconds });
        if(userDate < UNIX_Time_now){
                   console.log('No!');
-                  alert('No!');
+                  startRef.disabled = true;
+                  // input.disabled = true;
+                  // input.classList.add('gray');
+                  window.alert("Please choose a date in the future");
+                      iziToast.show({
+                        position: 'topRight', // bottomRight, bottomLeft, topRight
+                        backgroundColor: 'red',
+                        titleColor: 'white',
+                        messageColor: 'white',
+                                  // theme: 'light', //light
+                                  // color: 'green', // blue, red, green, yellow
+                        title: 'Date in Past!',
+                        message: "Please choose a date in the future"
+                              });
                   const{ days, hours, minutes, seconds }=convertMs(0);
                   uiLayout({ days, hours, minutes, seconds });
                   // daysRef.textContent = '00';
@@ -68,29 +89,34 @@ const zerro = 0;
         else{
         uiLayout({ days, hours, minutes, seconds });
         startRef.disabled = false;
-
       }
-      
-     
+           
       startRef.addEventListener('click',  ()=>{
-         console.log(userDate);
-         console.log(UNIX_Time_now);
+        //  console.log(userDate);
+        //  console.log(UNIX_Time_now);
          
+        // startRef.disabled = true;
+        // input.disabled = true;
+        // input.classList.add('gray');
 
         const intervalTime = setInterval(()=>{
           // console.log(difference);
+              startRef.disabled = true;
+              input.disabled = true;
+              input.classList.add('gray');
           difference-= 1000;
               
-          
               if(difference <= 0) {
                 clearInterval(intervalTime);
                 console.log('Timer stopped');
+                input.disabled = false;
+                input.classList.remove('gray');
                 }
           let {days, hours, minutes, seconds} = convertMs(difference);
           console.log({ days, hours, minutes, seconds });
           // console.log(difference);
           uiLayout({days, hours, minutes, seconds});
-        },1000)
+        }, 1000)
       
       });
           
@@ -168,7 +194,7 @@ function uiLayout({days, hours, minutes, seconds}){
     const day = hour * 24;
   
     // Remaining days
-    const days = pad(Math.floor(ms / day));
+    const days = padThree(Math.floor(ms / day));
     // Remaining hours
     const hours =  pad(Math.floor((ms % day) / hour));
     // Remaining minutes
@@ -195,6 +221,9 @@ function uiLayout({days, hours, minutes, seconds}){
 
   function pad(value){
     return value.toString().padStart(2, '0');
+  }
+   function padThree(value){
+    return value.toString().padStart(3, '0');
   }
 
 ////// Main function

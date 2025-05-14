@@ -3,5 +3,7 @@
 .div_box{
     width: 150px;
     height: 150px;
-    background-color: #812020;
+    background-color: #6c1d1d;
+    color: #fff;
+    padding: 5px;
 }

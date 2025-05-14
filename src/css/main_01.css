@@ -1,5 +1,5 @@
 body{
-    background-color: #9b9b9b;
+    background-color: #888787;
     padding: 15px;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -9,7 +9,7 @@ main{
     justify-content: flex-start;
     /* align-items: center; */
     height: 50vh;
-    background-color: #1c7393;
+    background-color: #5099ca;
 }
 .btn{
     font-style: italic;
