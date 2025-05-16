@@ -1,2 +1,2 @@
-import"./assets/modulepreload-polyfill-B5Qt9EMX.js";/* empty css                      */console.log("Snackbar module loaded");let o=null;const l={name:"Nata03",funObj(){o=this.name}};l.funObj();console.log(o);
+import"./assets/modulepreload-polyfill-B5Qt9EMX.js";/* empty css                      */console.log("Snackbar module loaded");const a=document.querySelector("form.form");a.addEventListener("submit",s);function s(t){t.preventDefault();const e={};new FormData(t.currentTarget).forEach((c,r)=>{e[r]=c}),console.log(e);const{delay:n,state:l}=e;i({delay:n,state:l})}function i({delay:t,state:e}){setTimeout(()=>{new Promise((o,n)=>{e==="fulfilled"?o("Fulfilled"):n("Rejected")}).then(o=>console.log(o)).catch(o=>console.log(o))},t)}
 //# sourceMappingURL=2-snackbar.js.map
