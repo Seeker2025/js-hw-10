@@ -2,6 +2,8 @@
 background-color: rgb(103, 135, 177);
 width: 385px;
 padding: 15px 0 15px 20px;
+border: 2px solid #000;
+border-radius: 3px;
 }
 .timer_h1{
     padding: 0 0 0 17px; 
