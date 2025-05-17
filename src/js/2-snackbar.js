@@ -29,8 +29,7 @@ function onFormSubmit(event){
 };
 
 function toQuickPromise({ delay, state }){
-    const num = Number(delay);
-    // console.log(typeof(num));
+    
     setTimeout(()=>{
          new Promise((resp, rej)=>{
         // let num = Math.random();
@@ -46,7 +45,7 @@ function toQuickPromise({ delay, state }){
                                   // theme: 'light', //light
                                   // color: 'green', // blue, red, green, yellow
                         title: 'Success!',
-                        message: `Fulfilled promise in ${num}ms`
+                        message: `Fulfilled promise in ${delay}ms`
 
                               });
     })
@@ -59,7 +58,7 @@ function toQuickPromise({ delay, state }){
                                   // theme: 'light', //light
                                   // color: 'green', // blue, red, green, yellow
                         title: 'Fail!',
-                        message: `Rejected promise in ${num}ms`
+                        message: `Rejected promise in ${delay}ms`
 
 
                               });
@@ -70,14 +69,5 @@ function toQuickPromise({ delay, state }){
     })
     }, delay);
 }
-// toQuickPromise('pee');
-// console.log('a'==='a');
 
 
-function toNum(w){
-    if(w==='a') console.log('a');
-    if(w==='b') console.log('b');
-}
-// toNum('a');
-
-// console.log('a'==='a');
